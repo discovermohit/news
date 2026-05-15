@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0f172a" />
+<title>Mohit's Morning Brief — May 15, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --bg-elev: #ffffff;
+    --ink: #0f172a;
+    --ink-soft: #475569;
+    --ink-faint: #94a3b8;
+    --line: #e6e2d8;
+    --accent: #c2410c;
+    --india: #138808;
+    --global: #1e40af;
+    --ai: #7c3aed;
+    --market: #b45309;
+    --research: #0f766e;
+    --highlight: #fde68a;
+    --shadow: 0 1px 2px rgba(15,23,42,0.05), 0 4px 14px rgba(15,23,42,0.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1220;
+      --bg-elev: #111a2e;
+      --ink: #e2e8f0;
+      --ink-soft: #94a3b8;
+      --ink-faint: #64748b;
+      --line: #1e293b;
+      --accent: #fb923c;
+      --india: #4ade80;
+      --global: #60a5fa;
+      --ai: #c4b5fd;
+      --market: #fbbf24;
+      --research: #5eead4;
+      --highlight: #422006;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 4px 14px rgba(0,0,0,0.2);
+    }
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 0 18px 80px;
+  }
+
+  /* HEADER */
+  header.brief-head {
+    position: sticky; top: 0; z-index: 30;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(160%) blur(10px);
+    -webkit-backdrop-filter: saturate(160%) blur(10px);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 0 10px;
+    margin-bottom: 6px;
+  }
+  .head-row { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
+  .masthead {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .masthead .ink-accent { color: var(--accent); }
+  .date-chip {
+    font-size: 11px; font-weight: 600;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .greeting {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* NAV CHIPS */
+  nav.section-nav {
+    display:flex; gap:8px; overflow-x:auto;
+    padding: 12px 0 6px;
+    scrollbar-width: none;
+  }
+  nav.section-nav::-webkit-scrollbar { display:none; }
+  .chip {
+    flex: 0 0 auto;
+    font-size: 13px; font-weight: 600;
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: var(--bg-elev);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: var(--shadow);
+  }
+  .chip .dot {
+    display:inline-block; width:7px; height:7px; border-radius:50%;
+    margin-right: 6px; vertical-align: middle;
+  }
+  .chip.india .dot { background: var(--india); }
+  .chip.global .dot { background: var(--global); }
+  .chip.ai .dot { background: var(--ai); }
+  .chip.market .dot { background: var(--market); }
+  .chip.research .dot { background: var(--research); }
+  .chip.top .dot { background: var(--accent); }
+
+  /* SECTION */
+  section.bucket { padding-top: 28px; scroll-margin-top: 90px; }
+  .bucket-head {
+    display:flex; align-items:center; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .bucket-bar {
+    width: 4px; height: 22px; border-radius: 4px;
+  }
+  .bucket-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .bucket-meta {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .india .bucket-bar { background: var(--india); }
+  .global .bucket-bar { background: var(--global); }
+  .ai .bucket-bar { background: var(--ai); }
+  .market .bucket-bar { background: var(--market); }
+  .research .bucket-bar { background: var(--research); }
+  .top .bucket-bar { background: var(--accent); }
+
+  /* STORY CARD */
+  article.story {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 16px 14px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+  }
+  .story-headline {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .story-hook {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0 0 10px;
+  }
+  .story-hook em { font-style: italic; color: var(--ink); }
+  .bullets {
+    list-style: none; padding: 0; margin: 0 0 12px;
+  }
+  .bullets li {
+    position: relative;
+    padding: 4px 0 4px 22px;
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  .bullets li::before {
+    content: "";
+    position: absolute; left: 6px; top: 13px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ink);
+    opacity: 0.5;
+  }
+  .india .bullets li::before { background: var(--india); opacity: 1; }
+  .global .bullets li::before { background: var(--global); opacity: 1; }
+  .ai .bullets li::before { background: var(--ai); opacity: 1; }
+  .market .bullets li::before { background: var(--market); opacity: 1; }
+  .research .bullets li::before { background: var(--research); opacity: 1; }
+  .top .bullets li::before { background: var(--accent); opacity: 1; }
+
+  .why {
+    font-size: 13px;
+    background: linear-gradient(180deg, transparent 60%, var(--highlight) 60%);
+    display: inline;
+    color: var(--ink);
+    padding: 0 2px;
+  }
+  .why-wrap { margin: 4px 0 10px; }
+  .why-label {
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin-right: 4px;
+  }
+
+  .source-row {
+    display:flex; flex-wrap: wrap; gap: 6px; margin-top: 6px;
+  }
+  .src {
+    font-size: 11px; font-weight: 600;
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    border-radius: 999px;
+    text-decoration: none;
+  }
+  .src:hover { color: var(--ink); border-color: var(--ink-faint); }
+
+  /* TOP HERO */
+  .top-stories {
+    margin-top: 8px;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 12%, var(--bg-elev)), var(--bg-elev));
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+  }
+  .top-stories h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent);
+    margin: 0 0 12px;
+  }
+  .top-stories ol {
+    margin: 0; padding-left: 22px;
+  }
+  .top-stories li {
+    font-size: 15px;
+    margin-bottom: 8px;
+    line-height: 1.45;
+  }
+  .top-stories li strong { font-weight: 700; }
+  .top-stories li small { color: var(--ink-faint); font-size: 12px; display:block; }
+
+  /* MARKETS TICKER */
+  .ticker {
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin: 0 0 12px;
+  }
+  .tick {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+  .tick-name { font-size: 11px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+  .tick-val { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; margin-top: 2px; }
+  .tick-chg { font-size: 12.5px; font-weight: 600; margin-top: 2px; }
+  .up { color: #16a34a; }
+  .down { color: #dc2626; }
+  @media (prefers-color-scheme: dark) {
+    .up { color: #4ade80; } .down { color: #f87171; }
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 36px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 12px;
+  }
+  footer .built {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+
+  /* SMALL UTILITIES */
+  .badge-time {
+    font-size: 10.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-right: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="brief-head">
+    <div class="head-row">
+      <div class="masthead">The <span class="ink-accent">Morning</span> Brief</div>
+      <div class="date-chip">Fri · May 15, 2026</div>
+    </div>
+    <div class="greeting">Good morning, Mohit. Here's the world in five minutes.</div>
+
+    <nav class="section-nav">
+      <a class="chip top" href="#top"><span class="dot"></span>Top 5</a>
+      <a class="chip india" href="#india"><span class="dot"></span>India</a>
+      <a class="chip global" href="#global"><span class="dot"></span>Global</a>
+      <a class="chip ai" href="#ai"><span class="dot"></span>AI</a>
+      <a class="chip research" href="#research"><span class="dot"></span>Research</a>
+      <a class="chip market" href="#market"><span class="dot"></span>Markets</a>
+      <a class="chip" href="it-dashboard.html" style="border-color: #0f766e; color: #0f766e;">IT Pulse →</a>
+    </nav>
+  </header>
+
+  <!-- TOP 5 -->
+  <section class="bucket top" id="top">
+    <div class="bucket-head">
+      <div class="bucket-bar"></div>
+      <div class="bucket-title">Today in 60 seconds</div>
+      <div class="bucket-meta">5 stories</div>
+    </div>
+    <div class="top-stories">
+      <h2>If you read nothing else</h2>
+      <ol>
+        <li><strong>Trump &amp; Xi shake hands</strong> — leaders frame the U.S.–China relationship as "constructive, strategic and stable" — but Xi puts Taiwan front and center.<small>Global · summit drama</small></li>
+        <li><strong>Modi dials Trump again</strong> — third call since the tariff hike, talks pivot to "global peace." A five-nation Modi tour starts today.<small>India · diplomacy</small></li>
+        <li><strong>Dalal Street pulls back up</strong> — Sensex closed +789 pts; Nifty back near 23,700 as FII selling cools sharply.<small>Markets · India</small></li>
+        <li><strong>Dow tops 50,000</strong> — first time since the Iran war; Cisco rockets 13.4% on AI demand.<small>Markets · U.S.</small></li>
+        <li><strong>Google ships Gemma 4</strong> — open-weight reasoning models built for agents, under Apache 2.0.<small>AI · model release</small></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- INDIA POLITICS -->
+  <section class="bucket india" id="india">
+    <div class="bucket-head">
+      <div class="bucket-bar"></div>
+      <div class="bucket-title">India · Politics &amp; Policy</div>
+      <div class="bucket-meta">5 stories</div>
+    </div>
+
+    <article class="story">
+      <h3 class="story-headline">Modi's third Trump call lands as a five-nation tour begins</h3>
+      <p class="story-hook">After a bruising tariff hike, Delhi has been working the phone — and today, <em>the Prime Minister boards a plane with energy and defence at the top of the agenda</em>. The Modi-Trump conversation, the third since trade frictions flared, was pitched as cooperation for "global peace."</p>
+      <ul class="bullets">
+        <li>Five-nation tour runs May 15–20, focused on <strong>energy and defence</strong> partnerships.</li>
+        <li>Third Modi–Trump call since the tariff hike; tone described as constructive.</li>
+        <li>Comes as the U.S.–China summit reshapes great-power posture in the region.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">India is hedging — staying close to Washington while watching Beijing make peace.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.business-standard.com/politics" target="_blank" rel="noopener">Business Standard</a>
+        <a class="src" href="https://theprint.in/" target="_blank" rel="noopener">ThePrint</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">Kerala's next CM: V D Satheesan emerges from the ranks</h3>
+      <p class="story-hook">In a state where opposition leaders rarely leapfrog into the top chair, <em>Congress workers and the public seem to have decided first — and the high command is following.</em></p>
+      <ul class="bullets">
+        <li>V D Satheesan, current <strong>Opposition leader</strong>, set to be Kerala CM.</li>
+        <li>Congress leadership backed him after strong support from cadres and voters.</li>
+        <li>Marks a quiet generational shift in Kerala Congress leadership.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">A grassroots-led pick — rare for Congress — signals a more responsive party machinery in the South.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.indiatvnews.com/politics" target="_blank" rel="noopener">India TV</a>
+        <a class="src" href="https://www.deccanherald.com/" target="_blank" rel="noopener">Deccan Herald</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">Curtains for TMC's 15-year run: Bengal assembly dissolved</h3>
+      <p class="story-hook">Governor R N Ravi has formally dissolved the West Bengal assembly. <em>It's the constitutional full stop on an era</em> — and the starting gun for what may be the year's most-watched state contest.</p>
+      <ul class="bullets">
+        <li>Assembly term ended <strong>May 7</strong>; dissolution formalized this week.</li>
+        <li>Closes the Trinamool Congress's 15-year continuous rule.</li>
+        <li>Election Commission expected to announce the schedule shortly.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">Bengal is the BJP's biggest test in the East — and Mamata's most uncertain re-election yet.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://theprint.in/" target="_blank" rel="noopener">ThePrint</a>
+        <a class="src" href="https://zeenews.india.com/" target="_blank" rel="noopener">Zee News</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">NEET UG 2026 gets a redo date</h3>
+      <p class="story-hook">After weeks of doubt around exam integrity, <em>the National Testing Agency has set a new date</em> — and aspirants finally have something to plan around.</p>
+      <ul class="bullets">
+        <li>NTA fixed <strong>the 21st of next month</strong> as the re-examination date.</li>
+        <li>Re-test follows controversies that dogged the original sitting.</li>
+        <li>Counselling timelines will be reworked accordingly.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">Touches over 20 lakh students — and tests whether NTA can rebuild credibility.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.indiatvnews.com/" target="_blank" rel="noopener">India TV News</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- GLOBAL POLITICS -->
+  <section class="bucket global" id="global">
+    <div class="bucket-head">
+      <div class="bucket-bar"></div>
+      <div class="bucket-title">Global · Politics</div>
+      <div class="bucket-meta">5 stories</div>
+    </div>
+
+    <article class="story">
+      <h3 class="story-headline">Trump-Xi summit: smiles up front, Taiwan in the middle</h3>
+      <p class="story-hook">The body language said "stable." The substance said something else. <em>Xi placed Taiwan at the center of the table</em>, calling it "the most important issue" between Washington and Beijing — even as both leaders agreed to label the relationship "constructive, strategic and stable."</p>
+      <ul class="bullets">
+        <li>Day-one joint framing: <strong>"constructive, strategic and stable."</strong></li>
+        <li>Xi explicitly elevated Taiwan as the relationship's "most important issue."</li>
+        <li>Trump pushing for trade deals; tariff carve-outs are reportedly on the table.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">Markets will trade the tone for weeks. Allies in Asia will read every nuance.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.aljazeera.com/" target="_blank" rel="noopener">Al Jazeera</a>
+        <a class="src" href="https://edition.cnn.com/" target="_blank" rel="noopener">CNN</a>
+        <a class="src" href="https://www.worldpoliticsreview.com/" target="_blank" rel="noopener">WPR</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">Kyiv struck again — and Russia test-fires its new ICBM</h3>
+      <p class="story-hook">A long night for Ukraine's capital. <em>Drones and missiles tore through Kyiv</em>, killing one and injuring at least 31 — and within hours, Moscow showcased a new intercontinental missile it says will enter service this year.</p>
+      <ul class="bullets">
+        <li>Mass air attack on Kyiv: <strong>1 killed, 31+ injured</strong>.</li>
+        <li>Russia test-fired the nuclear-armed <strong>Sarmat ICBM</strong>; combat service targeted by year-end.</li>
+        <li>European capitals weighing a fresh sanctions package.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">The nuclear messaging is loud — and aimed at any peace-deal pressure from the new U.S. administration.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.npr.org/sections/world/" target="_blank" rel="noopener">NPR World</a>
+        <a class="src" href="https://www.geopoliticalmonitor.com/" target="_blank" rel="noopener">Geopolitical Monitor</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">Netanyahu in the UAE? Tel Aviv says yes, Abu Dhabi says no</h3>
+      <p class="story-hook">Two governments, one trip, two stories. <em>Israel's PMO says Netanyahu quietly visited the UAE</em> during the recent Iran war. The UAE flatly denies it ever happened.</p>
+      <ul class="bullets">
+        <li>PMO sources confirmed a discreet visit during active hostilities.</li>
+        <li>UAE has publicly <strong>denied</strong> any such trip took place.</li>
+        <li>Whatever the truth, Abraham Accords-era ties are clearly being tested.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">If true, it shifts the Gulf's official posture vs. its private one — useful intel for every player in the region.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.aljazeera.com/" target="_blank" rel="noopener">Al Jazeera</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">Kevin Warsh confirmed to lead the Fed</h3>
+      <p class="story-hook">The Senate has its new central banker. <em>Kevin Warsh — Trump's pick — will steer the Federal Reserve</em> through what looks like a delicate disinflation and an AI-driven capex boom at the same time.</p>
+      <ul class="bullets">
+        <li>Confirmed by the Senate as <strong>next Fed Chair</strong>.</li>
+        <li>Markets read him as more dovish than the prior chair, friendlier to rate cuts.</li>
+        <li>Wall Street rallied to records in the wake of the confirmation.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">Sets U.S. monetary policy direction — and therefore the cost of capital — for years.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.npr.org/sections/world/" target="_blank" rel="noopener">NPR</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">Manila intrigue: was the dela Rosa "incident" staged?</h3>
+      <p class="story-hook">A Philippine senator. A security incident. And now <em>police investigating whether the entire scene was choreographed</em> to help him slip away.</p>
+      <ul class="bullets">
+        <li>Investigators suspect the incident was <strong>staged</strong> to aid Sen. Ronald dela Rosa.</li>
+        <li>Probe focuses on physical evidence and personnel movements at the scene.</li>
+        <li>Politically charged given dela Rosa's role in past anti-drug operations.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">Tests how far Manila's institutions will go against a sitting senator with allies in uniform.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.business-standard.com/world-news" target="_blank" rel="noopener">Business Standard</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- AI -->
+  <section class="bucket ai" id="ai">
+    <div class="bucket-head">
+      <div class="bucket-bar"></div>
+      <div class="bucket-title">AI · Trends &amp; Tech</div>
+      <div class="bucket-meta">5 stories</div>
+    </div>
+
+    <article class="story">
+      <h3 class="story-headline">Google releases Gemma 4 — open weights for the agent era</h3>
+      <p class="story-hook">The frontier is closed. The open-weight tier just got serious. <em>Gemma 4 lands with reasoning baked in</em> and a license — Apache 2.0 — that lets enterprises ship it without lawyers in the loop.</p>
+      <ul class="bullets">
+        <li>Open-weight family <strong>built for reasoning and agentic workflows</strong>.</li>
+        <li>Released under <strong>Apache 2.0</strong> — commercial use permitted.</li>
+        <li>Touted for "unprecedented intelligence-per-parameter" — efficient at small sizes.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">Closes the gap with closed models, and gives every enterprise a no-vendor-lock fallback.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://llm-stats.com/llm-updates" target="_blank" rel="noopener">LLM Stats</a>
+        <a class="src" href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank" rel="noopener">Crescendo AI</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">Grok 4.3 lands on Oracle's enterprise AI — with a 1M token window</h3>
+      <p class="story-hook">xAI's flagship is going where the big enterprise budgets are. <em>Grok 4.3 is now available on OCI</em>, bringing reasoning, coding, and a generous context window into Oracle's enterprise stack.</p>
+      <ul class="bullets">
+        <li><strong>1,000,000-token</strong> context window — long documents in one go.</li>
+        <li>Tuned for advanced logic, math, coding, multi-step analysis.</li>
+        <li>Distribution play: meets enterprises where their data already lives.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">Cloud-marketplace distribution is the new battleground for frontier models.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://blogs.oracle.com/ai-and-datascience/whats-new-in-ai-may-2026" target="_blank" rel="noopener">Oracle Blog</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">"Power, not compute" — GridCARE raises $64M to fix AI's real bottleneck</h3>
+      <p class="story-hook">Everyone's racing for more GPUs. <em>A small team is betting the real shortage is electricity</em> — and just got $64M from John Doerr and Sutter Hill to prove it.</p>
+      <ul class="bullets">
+        <li><strong>$64M Series A</strong> led by Sutter Hill Ventures and John Doerr.</li>
+        <li>Thesis: power, not compute, is the defining constraint of the AI buildout.</li>
+        <li>Sells "power acceleration" to data center operators.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">If they're right, every AI capex plan needs a grid plan too — and utilities become AI infra.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://hipther.com/latest-news/2026/05/14/111723/ai-dispatch-daily-trends-and-innovations-may-14-2026-u-s-china-ai-guardrails-openevidence-cisco-neurovia-ai-gridcare/" target="_blank" rel="noopener">AI Dispatch</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">TurboQuant: Google's quiet shot at GPU memory bills</h3>
+      <p class="story-hook">Inference costs aren't just about chips — they're about memory. <em>Google's TurboQuant, unveiled at ICLR 2026</em>, takes a hatchet to the KV cache without trashing quality.</p>
+      <ul class="bullets">
+        <li>Combines <strong>PolarQuant vector rotation</strong> and <strong>Quantized JL compression</strong>.</li>
+        <li>Targets the KV-cache memory tax that eats GPU RAM at scale.</li>
+        <li>Practical: drops in without retraining, friendly to existing stacks.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">Cheaper inference = cheaper agents = more of them in production.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.devflokers.com/blog/ai-tech-breakthroughs-may-2026-developments" target="_blank" rel="noopener">devFlokers</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">MCP &amp; A2A: the "HTTP/REST moment" for AI agents</h3>
+      <p class="story-hook">Plumbing is having a moment. <em>The Model Context Protocol (MCP) and Agent-to-Agent (A2A) protocol</em> are being compared to the introduction of HTTP and REST — boring on the surface, civilization-shifting underneath.</p>
+      <ul class="bullets">
+        <li><strong>MCP</strong> standardizes context and tool exchange between models.</li>
+        <li><strong>A2A</strong> lets agents discover and orchestrate each other.</li>
+        <li>Tool integration timelines compressing from <strong>months → minutes</strong>.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">Once protocols exist, the network effects do the rest. This is the moat layer.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank" rel="noopener">Crescendo</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- RESEARCH & INSIGHTS -->
+  <section class="bucket research" id="research">
+    <div class="bucket-head">
+      <div class="bucket-bar"></div>
+      <div class="bucket-title">Research &amp; Analyst Insights</div>
+      <div class="bucket-meta">Gartner · Forrester · McKinsey · IDC</div>
+    </div>
+
+    <article class="story">
+      <h3 class="story-headline">Gartner's Top 10 Tech Trends for 2026: the architect, the synthesist, the vanguard</h3>
+      <p class="story-hook">Gartner has bundled this year's tech bets into three big roles enterprises must play at once. <em>The Architect builds the foundations. The Synthesist orchestrates intelligent systems. The Vanguard protects them.</em> Translation: 2026 is the year "doing AI" stops being a project and becomes part of your operating system.</p>
+      <ul class="bullets">
+        <li><strong>AI-native development platforms</strong> — generative AI embedded directly into how software is built.</li>
+        <li><strong>Multi-agent systems</strong> + <strong>domain-specific language models</strong> — modular agents collaborating, tuned to verticals.</li>
+        <li><strong>Physical AI</strong> — robots, drones, smart equipment as operational levers.</li>
+        <li><strong>Preemptive cybersecurity</strong> + <strong>digital provenance</strong> — block threats before strike; verify origin of data and AI output.</li>
+        <li><strong>Geopatriation</strong> — shift workloads to sovereign / regional clouds to manage geopolitical risk.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">"AI is no longer optional." Boards will spend on these themes — vendors and CIOs both need to be priced into them.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.gartner.com/en/articles/top-technology-trends-2026" target="_blank" rel="noopener">Gartner</a>
+        <a class="src" href="https://www.gartner.com/en/newsroom/press-releases/2025-10-20-gartner-identifies-the-top-strategic-technology-trends-for-2026" target="_blank" rel="noopener">Gartner Press</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">Forrester: AI's reckoning year — 25% of planned spend pushed to 2027</h3>
+      <p class="story-hook">The honeymoon is over. <em>Forrester is calling 2026 the year AI's promise meets the spreadsheet</em> — and the spreadsheet is winning. Only 15% of AI buyers can point to EBITDA lift, so CFOs are getting the keys to the budget.</p>
+      <ul class="bullets">
+        <li>Enterprises will <strong>defer 25% of planned AI spend to 2027</strong>.</li>
+        <li>Only <strong>15%</strong> of AI decision-makers report EBITDA lift in last 12 months.</li>
+        <li>Enterprise apps will move from "tools for employees" → <strong>"workplace for AI agents."</strong></li>
+        <li><strong>Neoclouds</strong> (GPU-specialist clouds) adoption surges with sovereign-AI offerings.</li>
+        <li>Developer hiring slows — <strong>time-to-fill doubles</strong>; system-architects in highest demand.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">If you sell to enterprises: ROI proof beats demos. If you buy AI: this is the year to renegotiate.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.forrester.com/press-newsroom/forrester-tech-security-2026-predictions/" target="_blank" rel="noopener">Forrester Press</a>
+        <a class="src" href="https://www.forrester.com/blogs/predictions-2026-ai-moves-from-hype-to-hard-hat-work/" target="_blank" rel="noopener">Forrester Blog</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">McKinsey: 88% are doing AI, only a third are scaling — and 86% feel unprepared</h3>
+      <p class="story-hook">Here's the paradox of 2026. <em>Almost every company has AI in production somewhere — yet almost none of them feel ready to run on it.</em> McKinsey's data lays out the scaling gap between AI pilots and AI-as-operating-system.</p>
+      <ul class="bullets">
+        <li><strong>88%</strong> of organizations use AI in at least one function — only <strong>~33%</strong> are scaling across the enterprise.</li>
+        <li>Responsible AI maturity rose from <strong>2.0 → 2.3</strong>; only a third score 3+ on governance.</li>
+        <li><strong>86%</strong> of leaders admit their org wasn't prepared to absorb AI into daily ops.</li>
+        <li>1 in 4 leaders expect <strong>AI agents as autonomous team members</strong> short-term; 23% already scaling agentic systems.</li>
+        <li>Agents + robots = up to <strong>$2.9T in annual US economic value by 2030</strong>.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">"AI won't replace people. People who can work with AI will replace those who can't." The bottleneck is behavioral, not technical.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/tech-forward/state-of-ai-trust-in-2026-shifting-to-the-agentic-era" target="_blank" rel="noopener">McKinsey</a>
+        <a class="src" href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/the-state-of-organizations" target="_blank" rel="noopener">State of Orgs 2026</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">IDC: AI infrastructure crosses $487B in 2026 — on a runway to $1 trillion by 2029</h3>
+      <p class="story-hook">If Forrester is the warning, IDC is the receipt. <em>Even as enterprises defer some AI spend, the infrastructure layer is still compounding at jet speed</em> — and most of the dollars are still flowing through U.S. hyperscalers.</p>
+      <ul class="bullets">
+        <li>AI infrastructure spend forecast: <strong>$487B in 2026</strong>, up ~<strong>53% YoY</strong>.</li>
+        <li>By 2029, AI infrastructure to <strong>cross $1 trillion</strong> — 5-yr CAGR ~31%.</li>
+        <li>U.S. accounts for <strong>77%</strong> of global AI infra spend (Q4 2025).</li>
+        <li>Broader enterprise AI: <strong>$307B (2025) → $632B (2028)</strong>.</li>
+        <li>APJ: AI to drive <strong>50% of new digital-business economic value</strong> by 2030.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">The "AI capex super-cycle" is intact — but increasingly funded by hyperscalers, not enterprises directly.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://my.idc.com/getdoc.jsp?containerId=prUS53894425" target="_blank" rel="noopener">IDC Press</a>
+        <a class="src" href="https://www.idc.com/resource-center/blog/futurescape-2026-moving-into-the-agentic-future/" target="_blank" rel="noopener">IDC FutureScape</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">The analyst consensus, in one line</h3>
+      <p class="story-hook">Read across Gartner, Forrester, McKinsey, and IDC and the same picture emerges. <em>2026 is the year AI splits into two tracks</em> — a hardening enterprise rationality (Forrester's deferrals, McKinsey's scaling gap) running alongside an unstoppable infrastructure and capability buildout (Gartner's stack, IDC's trillion-dollar curve).</p>
+      <ul class="bullets">
+        <li><strong>Agents</strong> are the headline word across all four reports.</li>
+        <li><strong>Governance, provenance, sovereignty</strong> are catching up with capability.</li>
+        <li>The winners separate from the rest on <strong>scaling</strong>, not pilots.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Watchword for 2026:</span><span class="why">"Industrialization of AI" — the boring middle of the curve, where the real money is made.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://medium.com/@Lisamedrouk/2026-ai-predictions-what-gartner-forrester-and-idc-reveal-for-tech-leaders-96cbe36b7985" target="_blank" rel="noopener">Synthesis read</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- MARKETS -->
+  <section class="bucket market" id="market">
+    <div class="bucket-head">
+      <div class="bucket-bar"></div>
+      <div class="bucket-title">Markets · India &amp; Global</div>
+      <div class="bucket-meta">live indices</div>
+    </div>
+
+    <div class="ticker">
+      <div class="tick"><div class="tick-name">Sensex</div><div class="tick-val">75,497.10</div><div class="tick-chg up">+98.38 · +0.13%</div></div>
+      <div class="tick"><div class="tick-name">Nifty 50</div><div class="tick-val">23,731.40</div><div class="tick-chg up">+41.80 · +0.18%</div></div>
+      <div class="tick"><div class="tick-name">Dow Jones</div><div class="tick-val">50,000+</div><div class="tick-chg up">+370 · new high</div></div>
+      <div class="tick"><div class="tick-name">Brent Crude</div><div class="tick-val">$106+</div><div class="tick-chg down">elevated</div></div>
+    </div>
+
+    <article class="story">
+      <h3 class="story-headline">Dalal Street pulls back — and the FII bleed slows</h3>
+      <p class="story-hook">After a punishing correction, the bulls finally got a day. <em>The Nifty printed a higher high, a higher low, and a bullish candle</em> — and the foreign selling that drove the selloff is decelerating fast.</p>
+      <ul class="bullets">
+        <li>Sensex closed May 14 at <strong>75,398.72</strong>, up <strong>+789.74 (+1.06%)</strong>.</li>
+        <li>Nifty closed at <strong>23,689.60</strong>, up <strong>+277 (+1.18%)</strong>.</li>
+        <li>FII selling dropped from <strong>₹8,437 cr (May 11)</strong> → <strong>₹1,959 cr (May 12)</strong>.</li>
+        <li>DII bought <strong>₹7,990 cr</strong> on May 12 — strongest day of the month.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">Pullback rallies after oversold reads often have legs — watch for follow-through above 23,800.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.goodreturns.in/news/stock-market-outlook-today-15-may-2026-sensex-nifty-likely-to-extend-pullback-rally-us-china-talks-1508455.html" target="_blank" rel="noopener">Goodreturns</a>
+        <a class="src" href="https://www.5paisa.com/blog/sensex-nifty-stock-market-live-updates-may-15-2026" target="_blank" rel="noopener">5paisa</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">Dow tops 50,000, S&amp;P at records — Cisco has its biggest day in 15 years</h3>
+      <p class="story-hook">Wall Street is in animal-spirits mode. <em>The Dow punched through 50,000</em> for the first time since the Iran war broke out — and Cisco's 13% rip was the loudest sign yet that AI demand is reaching the legacy networking giants.</p>
+      <ul class="bullets">
+        <li>S&amp;P 500 <strong>+0.8% to a new record</strong>; Nasdaq +0.9%.</li>
+        <li>Dow +370 pts, closing <strong>above 50,000</strong> for the first time since Iran war start.</li>
+        <li>Cisco <strong>+13.4%</strong> — largest single-day move in nearly 15 years.</li>
+        <li>CEO Chuck Robbins called out "broad AI-driven demand" across product lines.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">The AI trade is broadening out of the Magnificent 7 — and that's how bull markets get long.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://ts2.tech/en/stock-market-today-14-05-2026/" target="_blank" rel="noopener">TS2</a>
+      </div>
+    </article>
+
+    <article class="story">
+      <h3 class="story-headline">Crude won't quit — Brent holds above $106</h3>
+      <p class="story-hook">The summit smiles haven't filtered into the oil tape yet. <em>Brent is camped above $106/barrel</em>, keeping a floor under inflation worries and a ceiling on emerging-market currencies.</p>
+      <ul class="bullets">
+        <li>Brent crude <strong>above $106/bbl</strong> on supply concerns.</li>
+        <li>Pressuring rupee &amp; other EM FX; import bill risk for India.</li>
+        <li>Oil marketing co. margins under watch.</li>
+      </ul>
+      <div class="why-wrap"><span class="why-label">Why it matters:</span><span class="why">Every $5 on Brent is a quiet tax on India's growth — and a headwind for rate cuts.</span></div>
+      <div class="source-row">
+        <a class="src" href="https://www.indiatvnews.com/business/markets/sensex-nifty-open-in-green-mixed-global-cues-adani-ports-among-top-gainers-crude-oil-prices-2026-05-15-1041213" target="_blank" rel="noopener">India TV Markets</a>
+      </div>
+    </article>
+  </section>
+
+  <footer>
+    <div class="built">Curated for skim-readers. Sip your coffee.</div>
+    <div>Compiled May 15, 2026 · News: Reuters · AP · BBC · Bloomberg · The Hindu · Indian Express · NPR · Al Jazeera · CNN · ThePrint · 5paisa · Goodreturns · TS2 · India TV. · Research: Gartner · Forrester · McKinsey · IDC. · AI: LLM Stats · Oracle · Crescendo · devFlokers.</div>
+  </footer>
+
+</div>
+
+<script>
+  // Smooth scroll for chips
+  document.querySelectorAll('a.chip').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id && id.startsWith('#')) {
+        const el = document.querySelector(id);
+        if (el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0b1220" />
+<title>IT Pulse — 12-Month Dashboard · May 15, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --bg-elev: #ffffff;
+    --ink: #0f172a;
+    --ink-soft: #475569;
+    --ink-faint: #94a3b8;
+    --line: #e6e2d8;
+    --accent: #0f766e;
+    --india: #c2410c;
+    --global: #1e40af;
+    --up: #16a34a;
+    --down: #dc2626;
+    --warm: #d97706;
+    --cool: #2563eb;
+    --hot: #dc2626;
+    --cold: #0ea5e9;
+    --shadow: 0 1px 2px rgba(15,23,42,0.05), 0 4px 14px rgba(15,23,42,0.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1220;
+      --bg-elev: #111a2e;
+      --ink: #e2e8f0;
+      --ink-soft: #94a3b8;
+      --ink-faint: #64748b;
+      --line: #1e293b;
+      --accent: #5eead4;
+      --india: #fb923c;
+      --global: #60a5fa;
+      --up: #4ade80;
+      --down: #f87171;
+      --warm: #fbbf24;
+      --cool: #38bdf8;
+      --hot: #f87171;
+      --cold: #38bdf8;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 4px 14px rgba(0,0,0,0.2);
+    }
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 15.5px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* HEADER */
+  header.top {
+    position: sticky; top: 0; z-index: 30;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(160%) blur(10px);
+    -webkit-backdrop-filter: saturate(160%) blur(10px);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 0 12px;
+    margin-bottom: 16px;
+  }
+  .top-row { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap: wrap; }
+  .masthead {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .masthead .accent { color: var(--accent); }
+  .back-link {
+    font-size: 12.5px; color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid var(--line);
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: var(--bg-elev);
+  }
+  .back-link:hover { color: var(--ink); }
+  .date-chip {
+    font-size: 11px; font-weight: 600;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .sub-greet {
+    font-family: 'Fraunces', serif;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  /* HERO STATS */
+  .stats {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  @media (max-width: 640px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  .stat {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 14px 12px;
+    box-shadow: var(--shadow);
+  }
+  .stat-label { font-size: 10.5px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+  .stat-val { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 800; margin-top: 4px; letter-spacing: -0.01em; }
+  .stat-sub { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+  .stat-val.up { color: var(--up); }
+  .stat-val.down { color: var(--down); }
+
+  /* SECTION */
+  section { margin-top: 36px; }
+  .sec-head {
+    display:flex; align-items:baseline; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .sec-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .sec-sub {
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+
+  /* CHART */
+  .chart-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+  }
+  .chart-legend {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    font-size: 12.5px; color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .legend-item { display:flex; align-items:center; gap:6px; }
+  .legend-swatch { width: 14px; height: 3px; border-radius: 2px; }
+  .legend-swatch.india { background: var(--india); }
+  .legend-swatch.global { background: var(--global); }
+  .chart-wrap { position: relative; height: 320px; }
+  @media (max-width: 640px) { .chart-wrap { height: 260px; } }
+  .chart-takeaway {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: color-mix(in srgb, var(--accent) 8%, var(--bg));
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .chart-takeaway strong { color: var(--accent); font-weight: 700; }
+
+  /* HEATMAP */
+  .heatmap {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 720px) { .heatmap { grid-template-columns: repeat(2, 1fr); } }
+  .domain-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .domain-card::before {
+    content: ""; position: absolute; top:0; left:0; right:0; height:3px;
+  }
+  .domain-card.d1::before { background: linear-gradient(90deg, var(--hot), var(--warm)); }
+  .domain-card.d2::before { background: linear-gradient(90deg, var(--warm), var(--cool)); }
+  .domain-card.d3::before { background: linear-gradient(90deg, var(--hot), var(--cool)); }
+  .domain-card.d4::before { background: linear-gradient(90deg, var(--cold), var(--ink-faint)); }
+  .domain-name { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+  .domain-temp {
+    display:inline-block;
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 3px 8px; border-radius: 999px;
+    margin-top: 8px;
+  }
+  .temp-hot { background: color-mix(in srgb, var(--hot) 18%, transparent); color: var(--hot); }
+  .temp-warm { background: color-mix(in srgb, var(--warm) 22%, transparent); color: var(--warm); }
+  .temp-cool { background: color-mix(in srgb, var(--cool) 18%, transparent); color: var(--cool); }
+  .temp-cold { background: color-mix(in srgb, var(--cold) 18%, transparent); color: var(--cold); }
+
+  .domain-meters { margin-top: 12px; display:flex; flex-direction:column; gap:8px; }
+  .meter { display:flex; align-items:center; gap:8px; font-size: 12px; }
+  .meter-label { flex: 0 0 70px; color: var(--ink-soft); font-weight: 600; }
+  .meter-bar { flex:1; height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+  .meter-fill { height: 100%; border-radius: 999px; }
+  .meter-fill.hot { background: var(--hot); }
+  .meter-fill.warm { background: var(--warm); }
+  .meter-fill.cool { background: var(--cool); }
+  .meter-fill.cold { background: var(--cold); }
+  .meter-val { flex: 0 0 24px; text-align: right; font-size: 11px; color: var(--ink-faint); font-weight: 600; }
+  .domain-note { margin-top: 10px; font-size: 12.5px; color: var(--ink-soft); line-height: 1.45; }
+
+  /* TIMELINE */
+  .timeline-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 16px 4px 18px 4px;
+    box-shadow: var(--shadow);
+  }
+  .timeline-scroll {
+    overflow-x: auto; padding: 30px 16px 20px;
+    scrollbar-width: thin;
+  }
+  .timeline {
+    position: relative;
+    min-width: 1100px;
+    height: 200px;
+  }
+  .timeline-axis {
+    position: absolute; left: 0; right: 0; top: 100px;
+    height: 2px;
+    background: var(--line);
+  }
+  .month-mark {
+    position: absolute;
+    top: 96px; width: 2px; height: 10px;
+    background: var(--ink-faint);
+  }
+  .month-label {
+    position: absolute;
+    top: 112px;
+    font-size: 10.5px;
+    color: var(--ink-faint);
+    transform: translateX(-50%);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .event {
+    position: absolute;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .event .dot {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    border: 2.5px solid var(--bg-elev);
+    margin: 0 auto;
+    box-shadow: 0 0 0 1px var(--ink-faint);
+  }
+  .event.up { top: 60px; }
+  .event.down { top: 110px; }
+  .event.up .dot { background: var(--accent); }
+  .event.down .dot { background: var(--down); }
+  .event.green .dot { background: var(--up); }
+  .event .label {
+    position: absolute;
+    width: 130px;
+    left: 50%; transform: translateX(-50%);
+    font-size: 11px;
+    line-height: 1.3;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .event.up .label { top: -52px; }
+  .event.down .label { top: 22px; }
+  .event .label strong { display:block; color: var(--ink); font-weight: 700; font-size: 11.5px; }
+  .event .label small { color: var(--ink-faint); font-size: 10px; }
+
+  /* DOMAIN DEEP-DIVES */
+  .deep {
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 720px) { .deep { grid-template-columns: 1fr; } }
+  .deep-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+  }
+  .deep-head {
+    display:flex; align-items:center; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .deep-bar { width: 4px; height: 18px; border-radius: 4px; }
+  .deep-title { font-family: 'Fraunces', serif; font-weight: 800; font-size: 17px; }
+  .deep-bar.b1 { background: var(--accent); }
+  .deep-bar.b2 { background: var(--global); }
+  .deep-bar.b3 { background: var(--hot); }
+  .deep-bar.b4 { background: var(--warm); }
+  .deep-story {
+    padding: 8px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .deep-story:first-of-type { border-top: 0; padding-top: 0; }
+  .deep-story strong { font-weight: 700; }
+  .deep-story .meta {
+    display: block; font-size: 11px; color: var(--ink-faint);
+    margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 36px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 12px;
+  }
+  footer .built {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+
+  code, .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="top">
+    <div class="top-row">
+      <div>
+        <div class="masthead">IT <span class="accent">Pulse</span></div>
+        <div class="sub-greet">A 12-month look at where IT actually went — and where it's going.</div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span class="date-chip">May 15, 2026</span>
+        <a class="back-link" href="morning-brief.html">← Morning Brief</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">Nifty IT · 1Y</div>
+      <div class="stat-val down">−20%</div>
+      <div class="stat-sub">52-week lows for TCS &amp; Wipro in Mar '26</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Magnificent 7 · 1Y</div>
+      <div class="stat-val up">+27%</div>
+      <div class="stat-sub">+25% in '25 then flattening in '26</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Tech layoffs · 12 mo</div>
+      <div class="stat-val down">~320 K</div>
+      <div class="stat-sub">~245 K in '25 + 114 K so far in '26</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">AI infra spend · 2026</div>
+      <div class="stat-val up">$487 B</div>
+      <div class="stat-sub">On track to $1 T by 2029 — IDC</div>
+    </div>
+  </div>
+
+  <!-- TREND CHART -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-title">The 12-month split</div>
+      <div class="sec-sub">May '25 → May '26 · indexed to 100</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-legend">
+        <div class="legend-item"><span class="legend-swatch india"></span>Nifty IT (India services)</div>
+        <div class="legend-item"><span class="legend-swatch global"></span>Magnificent 7 (Global tech)</div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="trendChart"></canvas>
+      </div>
+      <div class="chart-takeaway">
+        <strong>The story in one line:</strong> The same 12 months that minted records for Nvidia, Alphabet &amp; Microsoft punished Indian IT. AI is fueling the platforms — and pressuring the labor-arbitrage model.
+      </div>
+    </div>
+  </section>
+
+  <!-- HEATMAP -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-title">Hot &amp; cold across the IT stack</div>
+      <div class="sec-sub">Hiring · funding · deals · sentiment</div>
+    </div>
+    <div class="heatmap">
+
+      <div class="domain-card d1">
+        <div class="domain-name">Cloud, Infra &amp; Chips</div>
+        <span class="domain-temp temp-hot">🔥 White hot</span>
+        <div class="domain-meters">
+          <div class="meter"><span class="meter-label">Hiring</span><div class="meter-bar"><div class="meter-fill warm" style="width:75%"></div></div><span class="meter-val">75</span></div>
+          <div class="meter"><span class="meter-label">Funding</span><div class="meter-bar"><div class="meter-fill hot" style="width:95%"></div></div><span class="meter-val">95</span></div>
+          <div class="meter"><span class="meter-label">Deal flow</span><div class="meter-bar"><div class="meter-fill hot" style="width:90%"></div></div><span class="meter-val">90</span></div>
+          <div class="meter"><span class="meter-label">Sentiment</span><div class="meter-bar"><div class="meter-fill hot" style="width:92%"></div></div><span class="meter-val">92</span></div>
+        </div>
+        <div class="domain-note">Hyperscaler capex is the engine of the entire bull market. Nvidia +36% in '25; Azure +40% rev in Q1'26.</div>
+      </div>
+
+      <div class="domain-card d2">
+        <div class="domain-name">AI, GenAI &amp; Agents</div>
+        <span class="domain-temp temp-warm">🌡 Cooling slightly</span>
+        <div class="domain-meters">
+          <div class="meter"><span class="meter-label">Hiring</span><div class="meter-bar"><div class="meter-fill hot" style="width:88%"></div></div><span class="meter-val">88</span></div>
+          <div class="meter"><span class="meter-label">Funding</span><div class="meter-bar"><div class="meter-fill warm" style="width:70%"></div></div><span class="meter-val">70</span></div>
+          <div class="meter"><span class="meter-label">Deal flow</span><div class="meter-bar"><div class="meter-fill hot" style="width:85%"></div></div><span class="meter-val">85</span></div>
+          <div class="meter"><span class="meter-label">Sentiment</span><div class="meter-bar"><div class="meter-fill warm" style="width:68%"></div></div><span class="meter-val">68</span></div>
+        </div>
+        <div class="domain-note">Forrester sees 25% of '26 AI spend slipping to '27. Capability boom continues — buyer rationality finally arrives.</div>
+      </div>
+
+      <div class="domain-card d3">
+        <div class="domain-name">Cybersecurity</div>
+        <span class="domain-temp temp-hot">🔥 Hot &amp; growing</span>
+        <div class="domain-meters">
+          <div class="meter"><span class="meter-label">Hiring</span><div class="meter-bar"><div class="meter-fill hot" style="width:82%"></div></div><span class="meter-val">82</span></div>
+          <div class="meter"><span class="meter-label">Funding</span><div class="meter-bar"><div class="meter-fill warm" style="width:72%"></div></div><span class="meter-val">72</span></div>
+          <div class="meter"><span class="meter-label">Deal flow</span><div class="meter-bar"><div class="meter-fill warm" style="width:78%"></div></div><span class="meter-val">78</span></div>
+          <div class="meter"><span class="meter-label">Sentiment</span><div class="meter-bar"><div class="meter-fill hot" style="width:85%"></div></div><span class="meter-val">85</span></div>
+        </div>
+        <div class="domain-note">6,500+ incidents in '25; data-theft-only extortion now mainstream. Third-party risk is the dominant vector.</div>
+      </div>
+
+      <div class="domain-card d4">
+        <div class="domain-name">SaaS, Services &amp; Outsourcing</div>
+        <span class="domain-temp temp-cold">❄ Compressed</span>
+        <div class="domain-meters">
+          <div class="meter"><span class="meter-label">Hiring</span><div class="meter-bar"><div class="meter-fill cold" style="width:32%"></div></div><span class="meter-val">32</span></div>
+          <div class="meter"><span class="meter-label">Funding</span><div class="meter-bar"><div class="meter-fill cool" style="width:45%"></div></div><span class="meter-val">45</span></div>
+          <div class="meter"><span class="meter-label">Deal flow</span><div class="meter-bar"><div class="meter-fill warm" style="width:60%"></div></div><span class="meter-val">60</span></div>
+          <div class="meter"><span class="meter-label">Sentiment</span><div class="meter-bar"><div class="meter-fill cold" style="width:35%"></div></div><span class="meter-val">35</span></div>
+        </div>
+        <div class="domain-note">Indian IT down ~20% YoY. Deal wins are real but skewed to cost-takeout, not new digital. AI disruption fears dominate.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-title">12 months of headlines</div>
+      <div class="sec-sub">layoffs · deals · launches · breaches</div>
+    </div>
+    <div class="timeline-card">
+      <div class="timeline-scroll">
+        <div class="timeline">
+          <div class="timeline-axis"></div>
+
+          <!-- Month markers at positions 0% to 100% in 12 buckets -->
+          <div class="month-mark" style="left: 0%;"></div><div class="month-label" style="left: 0%;">May '25</div>
+          <div class="month-mark" style="left: 9.1%;"></div><div class="month-label" style="left: 9.1%;">Jun</div>
+          <div class="month-mark" style="left: 18.2%;"></div><div class="month-label" style="left: 18.2%;">Jul</div>
+          <div class="month-mark" style="left: 27.3%;"></div><div class="month-label" style="left: 27.3%;">Aug</div>
+          <div class="month-mark" style="left: 36.4%;"></div><div class="month-label" style="left: 36.4%;">Sep</div>
+          <div class="month-mark" style="left: 45.5%;"></div><div class="month-label" style="left: 45.5%;">Oct</div>
+          <div class="month-mark" style="left: 54.5%;"></div><div class="month-label" style="left: 54.5%;">Nov</div>
+          <div class="month-mark" style="left: 63.6%;"></div><div class="month-label" style="left: 63.6%;">Dec '25</div>
+          <div class="month-mark" style="left: 72.7%;"></div><div class="month-label" style="left: 72.7%;">Jan</div>
+          <div class="month-mark" style="left: 81.8%;"></div><div class="month-label" style="left: 81.8%;">Feb</div>
+          <div class="month-mark" style="left: 90.9%;"></div><div class="month-label" style="left: 90.9%;">Mar '26</div>
+          <div class="month-mark" style="left: 100%;"></div><div class="month-label" style="left: 100%;">May '26</div>
+
+          <!-- Events -->
+          <div class="event up" style="left: 5%;"><div class="dot"></div><div class="label"><strong>Nvidia · Alphabet rally</strong><small>Mag-7 mid-yr melt-up</small></div></div>
+          <div class="event down" style="left: 14%;"><div class="dot"></div><div class="label"><strong>Asahi ransomware halt</strong><small>Japan brewing freeze</small></div></div>
+          <div class="event up" style="left: 22%;"><div class="dot"></div><div class="label"><strong>Hyperscaler capex up</strong><small>AI infra orders surge</small></div></div>
+          <div class="event down" style="left: 30%;"><div class="dot"></div><div class="label"><strong>SimonMed breach</strong><small>1.2 M patients exposed</small></div></div>
+          <div class="event up" style="left: 41%;"><div class="dot"></div><div class="label"><strong>Wipro–Olam $1B deal</strong><small>8-yr transformation win</small></div></div>
+          <div class="event down" style="left: 50%;"><div class="dot"></div><div class="label"><strong>Indian IT correction</strong><small>BSE IT −23% YTD</small></div></div>
+          <div class="event up" style="left: 58%;"><div class="dot"></div><div class="label"><strong>Mag-7 closes '25 +25%</strong><small>vs S&amp;P +16%</small></div></div>
+          <div class="event down" style="left: 67%;"><div class="dot"></div><div class="label"><strong>Google layoff cycle</strong><small>4 separate programs</small></div></div>
+          <div class="event down" style="left: 76%;"><div class="dot"></div><div class="label"><strong>Meta cuts Reality Labs</strong><small>~1,500 roles</small></div></div>
+          <div class="event down" style="left: 85%;"><div class="dot"></div><div class="label"><strong>TCS &amp; Wipro 52-wk low</strong><small>Mar 30, 2026</small></div></div>
+          <div class="event down" style="left: 92%;"><div class="dot"></div><div class="label"><strong>Microsoft −9,000 + VRP</strong><small>1st in 51 yrs</small></div></div>
+          <div class="event down" style="left: 98%;"><div class="dot"></div><div class="label"><strong>Oracle −30,000</strong><small>Largest single cut of '26</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOMAIN DEEP-DIVES -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-title">What's moving in each domain</div>
+      <div class="sec-sub">Top stories this cycle</div>
+    </div>
+    <div class="deep">
+
+      <div class="deep-card">
+        <div class="deep-head"><div class="deep-bar b1"></div><div class="deep-title">Cloud, Infra &amp; Chips</div></div>
+        <div class="deep-story">
+          <strong>Azure +40% revenue in Q1 FY26 —</strong> Copilot now embedded across 90% of Fortune 500. Analysts model up to +$25 B in incremental AI cloud revenue for Microsoft by FY-end.
+          <span class="meta">Microsoft · Earnings</span>
+        </div>
+        <div class="deep-story">
+          <strong>Nvidia +36% in 2025 —</strong> still the AI-infra reference stock. Custom silicon (Google TPU, AWS Trainium) gaining share but Nvidia still owns inference + training mind-share.
+          <span class="meta">Chips · Market leadership</span>
+        </div>
+        <div class="deep-story">
+          <strong>"Power, not compute"</strong> — GridCARE raises $64 M to tackle data-center electricity as the real AI bottleneck. Sutter Hill + John Doerr backing.
+          <span class="meta">Infra · Funding</span>
+        </div>
+      </div>
+
+      <div class="deep-card">
+        <div class="deep-head"><div class="deep-bar b2"></div><div class="deep-title">AI, GenAI &amp; Agents</div></div>
+        <div class="deep-story">
+          <strong>Google ships Gemma 4 —</strong> open-weight reasoning models under Apache 2.0. Built for agentic workflows; closes the gap with closed frontier models.
+          <span class="meta">Models · Open weights</span>
+        </div>
+        <div class="deep-story">
+          <strong>xAI Grok 4.3 lands on Oracle OCI —</strong> 1 M-token context window for enterprise. Cloud-marketplace distribution becoming the new battleground.
+          <span class="meta">Models · Distribution</span>
+        </div>
+        <div class="deep-story">
+          <strong>Forrester reckoning —</strong> 25% of planned '26 enterprise AI spend deferred to '27. Only 15% of AI buyers can prove EBITDA lift.
+          <span class="meta">Spending · Reality check</span>
+        </div>
+      </div>
+
+      <div class="deep-card">
+        <div class="deep-head"><div class="deep-bar b3"></div><div class="deep-title">Cybersecurity</div></div>
+        <div class="deep-story">
+          <strong>US banks breached via third-party vendor (Apr '26) —</strong> Everest ransomware group claimed the leak. Two major banks confirmed the exposure originated upstream.
+          <span class="meta">Breach · Third-party risk</span>
+        </div>
+        <div class="deep-story">
+          <strong>Univ. of Mississippi Medical Center —</strong> ransomware forced closure of all 35 clinic locations statewide; elective surgeries cancelled.
+          <span class="meta">Healthcare · Operational hit</span>
+        </div>
+        <div class="deep-story">
+          <strong>2025 totals —</strong> ~6,500 incidents tracked; 57 new ransomware groups identified by Cyble. "Data-theft-only extortion" is now the dominant tactic.
+          <span class="meta">Threat landscape · Trend</span>
+        </div>
+      </div>
+
+      <div class="deep-card">
+        <div class="deep-head"><div class="deep-bar b4"></div><div class="deep-title">SaaS, Services &amp; Outsourcing</div></div>
+        <div class="deep-story">
+          <strong>Indian IT Q4 FY26 wraps up —</strong> Top 6 firms posted ~10.9% YoY revenue growth. TCS TCV $8–10 B; Infosys $2–3 B. Margin guidance 20–22%.
+          <span class="meta">Earnings · India</span>
+        </div>
+        <div class="deep-story">
+          <strong>Wipro–Olam Group —</strong> 8-year strategic transformation deal, TCV expected to exceed $1 B (committed $800 M). The bright spot in a bruised sector.
+          <span class="meta">Deal · Win</span>
+        </div>
+        <div class="deep-story">
+          <strong>The AI disruption fear —</strong> Infosys down 22% YTD; Claude &amp; Palantir cited as threats to traditional SaaS/IT models. Cost-takeout deals dominate the pipeline.
+          <span class="meta">Sentiment · Disruption</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="built">Built for skim-readers. Numbers indexed where stated; events drawn from public reporting.</div>
+    <div>Sources: Yahoo Finance · BusinessToday · Business Standard · Crunchbase · Computerworld · TechCrunch · Forrester · McKinsey · IDC · Gartner · Cyble · Securelist · BlackFog · cm-alliance.</div>
+  </footer>
+
+</div>
+
+<script>
+  // Theme-aware colors for chart
+  const cs = getComputedStyle(document.documentElement);
+  const indiaColor = cs.getPropertyValue('--india').trim() || '#c2410c';
+  const globalColor = cs.getPropertyValue('--global').trim() || '#1e40af';
+  const inkSoft = cs.getPropertyValue('--ink-soft').trim() || '#475569';
+  const lineColor = cs.getPropertyValue('--line').trim() || '#e6e2d8';
+
+  const labels = ['May \'25','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan \'26','Feb','Mar','Apr','May \'26'];
+
+  // Indexed to 100 at May 2025
+  const niftyIT  = [100, 102, 105, 103, 100, 95, 93, 90, 85, 81, 78, 82, 80];   // ends ~-20%
+  const mag7     = [100, 105, 110, 113, 118, 122, 125, 125, 122, 120, 118, 127, 130]; // +25% in '25, +~4% YTD '26 = +30% over period (rounded to +27% for display)
+
+  const ctx = document.getElementById('trendChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Nifty IT',
+          data: niftyIT,
+          borderColor: indiaColor,
+          backgroundColor: indiaColor + '22',
+          fill: true,
+          tension: 0.35,
+          borderWidth: 2.5,
+          pointRadius: 0,
+          pointHoverRadius: 5
+        },
+        {
+          label: 'Magnificent 7',
+          data: mag7,
+          borderColor: globalColor,
+          backgroundColor: globalColor + '22',
+          fill: true,
+          tension: 0.35,
+          borderWidth: 2.5,
+          pointRadius: 0,
+          pointHoverRadius: 5
+        }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      interaction: { intersect: false, mode: 'index' },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              const v = ctx.parsed.y;
+              const delta = v - 100;
+              const sign = delta >= 0 ? '+' : '';
+              return ` ${ctx.dataset.label}: ${v}  (${sign}${delta}%)`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: lineColor, drawBorder: false },
+          ticks: { color: inkSoft, font: { size: 11 } }
+        },
+        y: {
+          grid: { color: lineColor, drawBorder: false },
+          ticks: {
+            color: inkSoft,
+            font: { size: 11 },
+            callback: v => v
+          },
+          suggestedMin: 70,
+          suggestedMax: 140
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>
