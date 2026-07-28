@@ -358,7 +358,7 @@
         <div class="sub-greet">A 12-month look at where IT actually went — and where it's going.</div>
       </div>
       <div style="display:flex; gap:8px; align-items:center;">
-        <span class="date-chip">Tue · July 28, 2026 · $1tn+ chip selloff hits Asia — Kospi −9.4%, Nikkei −4.5% as SK Hynix, Samsung slide ~12% · custom silicon from OpenAI, Amazon, Cerebras dents Nvidia · Brent slips to ~$87 on Iran pause, Sensex rebounds to 76,835 · Gartner lifts 2026 IT spend to $6.37tn (+14.2%) · 2026 tech layoffs top 205,000, 54% cite AI</span>
+        <span class="date-chip">Tue · July 28, 2026 · $1tn+ chip selloff hits Asia — Kospi −9.4%, Nikkei −4.5% as SK Hynix, Samsung slide ~12% · custom silicon from OpenAI, Amazon, Cerebras dents Nvidia · Brent slips to ~$87 on Iran pause, Sensex opens flat at 76,832 · Nifty IT +2% decouples from the chip rout · Gartner lifts 2026 IT spend to $6.37tn (+14.2%) · 2026 tech layoffs top 205,000, 54% cite AI</span>
         <a class="back-link" href="morning-brief.html">← Morning Brief</a>
       </div>
     </div>
@@ -403,7 +403,7 @@
         <canvas id="trendChart"></canvas>
       </div>
       <div class="chart-takeaway">
-        <strong>The story in one line:</strong> the split is still there — but this week the global side finally cracked. By <strong>Tuesday, July 28</strong> the pressure had rotated from oil to silicon: a <strong>$1-trillion-plus selloff in chip stocks</strong> detonated across Asia (<strong>Kospi −9.4% into circuit-breakers, Nikkei −4.5%</strong>) after an <strong>SK Hynix HBM-slowdown report</strong> and <strong>custom silicon from OpenAI, Amazon and Cerebras</strong> began denting Nvidia's monopoly — trimming the Magnificent 7 even as the <strong>Philadelphia Semiconductor Index fell ~10%</strong>. The Indian side got a reprieve: with <strong>Trump pausing the Iran strikes, Brent slid to ~$87</strong> and the <strong>Sensex rebounded 766 points to 76,835</strong>, Nifty back near 24,000 — though the chip rout and Thursday's F&amp;O expiry cap the upside. The structural divergence <em>is</em> the chart: global investors are now repricing the very hardware trade that underwrites the AI story, while the Indian majors stay <strong>~46% below their 2024 peak</strong>. Underneath it all: <strong>205,000+ tech jobs</strong> gone in 2026 with <strong>54% of cuts citing AI</strong>, and <strong>Gartner's IT-spend forecast revised up a third time to $6.37tn (+14.2%)</strong>, data-centre systems alone up 55.8% — a supply-led build-out betting on demand that hasn't fully arrived.
+        <strong>The story in one line:</strong> the split is still there — but this week the global side finally cracked. By <strong>Tuesday, July 28</strong> the pressure had rotated from oil to silicon: a <strong>$1-trillion-plus selloff in chip stocks</strong> detonated across Asia (<strong>Kospi −9.4% into circuit-breakers, Nikkei −4.5%</strong>) after an <strong>SK Hynix HBM-slowdown report</strong> and <strong>custom silicon from OpenAI, Amazon and Cerebras</strong> began denting Nvidia's monopoly — trimming the Magnificent 7 even as the <strong>Philadelphia Semiconductor Index fell ~10%</strong>. The Indian side did more than hold: with <strong>Trump pausing the Iran strikes, Brent slid to ~$87</strong> and the <strong>Sensex rebounded 766 points to 76,835</strong>; this morning it <strong>opened flat and Nifty IT actually rose ~2%</strong>, decoupling from Asia's silicon panic — a repricing of AI hardware reading as a rotation <em>into</em> the asset-light Indian integrators. The structural divergence <em>is</em> the chart: global investors are now repricing the very hardware trade that underwrites the AI story, while the Indian majors stay <strong>~46% below their 2024 peak</strong>. Underneath it all: <strong>205,000+ tech jobs</strong> gone in 2026 with <strong>54% of cuts citing AI</strong>, and <strong>Gartner's IT-spend forecast revised up a third time to $6.37tn (+14.2%)</strong>, data-centre systems alone up 55.8% — a supply-led build-out betting on demand that hasn't fully arrived.
       </div>
     </div>
   </section>
@@ -572,6 +572,10 @@
           <strong>TCS and Infosys tell the same story: flat core, growing AI —</strong> <strong>TCS opened FY27 with revenue flat at $7,624m</strong> (+2.7% YoY) but an <strong>annualised AI book of $2.6bn, up 13.6% QoQ</strong> and multiple AI-transformation deal wins; <strong>Infosys trimmed FY27 guidance to 1.5–3.0%</strong> even as its AI revenue reached <strong>8.2% of the mix</strong> on a <strong>$3.6bn large-deal TCV</strong>. Both are buying and re-shaping growth around outcome-priced, AI-delivered work rather than headcount. Deals and margins — not hiring — are what the Street is now paying Indian IT for.
           <span class="meta">India IT · Deals</span>
         </div>
+        <div class="deep-story">
+          <strong>Job cuts deepen even as the businesses grow —</strong> Business Standard reports <strong>TCS and Infosys keep laying off while revenue rises</strong>, framing it as an AI-first redesign, not distress: <strong>TCS has now let go ~23,460 staff</strong> (a planned ~12,000-role cut MeitY is watching), while <strong>Infosys has sharply slowed fresher onboarding</strong>. On the buy side, Infosys <strong>completed its acquisition of Optimum Healthcare IT</strong>, a Best-in-KLAS digital-transformation firm — buying vertical depth while trimming the pyramid. The pattern holds: shrink the base, bolt on capability.
+          <span class="meta">India IT · Restructuring</span>
+        </div>
       </div>
 
     </div>
@@ -595,8 +599,8 @@
   const labels = ['Aug \'25','Sep','Oct','Nov','Dec','Jan \'26','Feb','Mar','Apr','May','Jun','Jul \'26'];
 
   // Window held at Aug'25→Jul'26 (July is the current, still-open month — no Aug'26 data exists yet); the Jul'26 point is re-marked each day to the latest reading
-  const niftyIT  = [ 98,  94,  90,  88,  84,  79,  76,  80,  87,  92,  86,  84];      // Jul 28 (latest reading): Nifty IT edges up as the oil-relief rally lifts the broad market (Sensex +766), but the overnight Asian chip rout caps the recovery; the pack stays ~46% below its 2024 peak
-  const mag7     = [104, 107, 110, 110, 107, 105, 104, 112, 118, 126, 133, 124];      // Jul 28 (latest reading): mega-cap tech turns down as a $1tn+ chip selloff (SOX −10%, custom silicon vs Nvidia) hits the Magnificent 7; the India/US split narrows as the global side finally cracks
+  const niftyIT  = [ 98,  94,  90,  88,  84,  79,  76,  80,  87,  92,  86,  86];      // Jul 28 (latest reading): Nifty IT rises ~2% at the open and LEADS the market even as Asian chips crater — Indian services decouple from the silicon rout; still ~46% below the 2024 peak
+  const mag7     = [104, 107, 110, 110, 107, 105, 104, 112, 118, 126, 133, 122];      // Jul 28 (latest reading): mega-cap tech extends losses as the $1tn+ chip selloff deepens (SOX −10%, custom silicon vs Nvidia) and drags the Magnificent 7; the India/US split narrows sharply as the global side cracks while Nifty IT rises
 
   const ctx = document.getElementById('trendChart').getContext('2d');
   new Chart(ctx, {
